@@ -10,4 +10,4 @@ To get your `group_id`, `project_id`, etc - it can be found in the 3-dot setting
 
 If you want to change it at all, these [docs](https://docs.gitlab.com/api/users/#create-a-runner-linked-to-a-user) will be useful for the API call and these [docs](https://docs.gitlab.com/runner/register/) will be useful for registering the runner.
 
-For using with Ansible, just set an environment variable in your task and add tell the script to use it.
+For using with Ansible, you can set a the token as an environment variable provided from a keystore and tell the script to use it that way.
