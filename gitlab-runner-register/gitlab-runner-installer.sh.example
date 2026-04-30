@@ -1,0 +1,20 @@
+#!/bin/bash
+# NOTES:
+# - Requires the curl and jq tool to be installed
+# - Requires gitlab-runner to be installed
+# - Can easily be used in an ansible script, etc
+
+gitlab_runner_token_raw=$(curl --request POST \
+  --url "https://gitlab.example.com/api/v4/user/runners" \
+  --data "runner_type=group_type" \
+  --data "group_id=1234" \
+  --data "description=Runner created via script" \
+  --data "tag_list=test,script" \
+  --header "PRIVATE-TOKEN: <group_access_token>")
+
+gitlab_runner_token=$(echo $gitlab_runner_token_raw | jq -r '.token')
+
+gitlab-runner register --non-interactive \
+    --url "https://gitlab.example.com" \
+    --token "$gitlab_runner_token" \
+    --executor "shell"
